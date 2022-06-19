@@ -10,7 +10,7 @@ using System.Collections.ObjectModel;
 using System.Windows.Input;
 
 namespace parse2.ViewModel
-{    
+{
     internal class AppViewModel : INotifyPropertyChanged
     {
         public Random uuu = new Random();
@@ -56,11 +56,10 @@ namespace parse2.ViewModel
         public AppViewModel()
         {
             Cities = Model.MainWindowModel.Cities;
-
-            Go();
+            //Go();
         }
 
-        async void Go()
+        public async void Go()
         {
             for (int j = 0; j < 101; j++)
             {
@@ -71,6 +70,11 @@ namespace parse2.ViewModel
                 }
                 Testtoo = string.Join('\0', Test);
             }
+        }
+
+        private void StartSecondWindow()
+        {
+
         }
 
         public event PropertyChangedEventHandler PropertyChanged;

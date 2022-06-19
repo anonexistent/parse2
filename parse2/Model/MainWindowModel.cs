@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
+using parse2.Model.parser;
 using System.Collections.ObjectModel;
 
 namespace parse2.Model
@@ -20,25 +21,25 @@ namespace parse2.Model
             }
         }
 
-        private int _temp;
-        public int Temp
+        private int _tempr;
+        public int Tempr
         {
-            get { return _temp; }
-            set { _temp = value;
+            get { return _tempr; }
+            set { _tempr = value;
                 OnPropertyChanged();
             }
         }
 
         public static ObservableCollection<MainWindowModel> Cities { get; set; } = new ObservableCollection<MainWindowModel> {
-                new MainWindowModel { City = "msk", Temp = 10 },
-                new MainWindowModel { City = "orsk", Temp = 20 },
-                new MainWindowModel { City = "rostov", Temp = 29 },
-                new MainWindowModel { City = "spb", Temp = 0 },
-                new MainWindowModel { City = "vladivostok", Temp = 40 },
-                new MainWindowModel { City = "apple", Temp = -1 },
-                new MainWindowModel { City = "nokia", Temp = 5 },
-                new MainWindowModel { City = "ulan-ude", Temp = 11 },
-                new MainWindowModel { City = "krasnodar", Temp = 21 }
+                new MainWindowModel { City = "msk", Tempr = 10 },
+                new MainWindowModel { City = "orsk", Tempr = 20 },
+                new MainWindowModel { City = "rostov", Tempr = 29 },
+                new MainWindowModel { City = "spb", Tempr = 0 },
+                new MainWindowModel { City = "vladivostok", Tempr = 40 },
+                new MainWindowModel { City = "apple", Tempr = -1 },
+                new MainWindowModel { City = "nokia", Tempr = 5 },
+                new MainWindowModel { City = "ulan-ude", Tempr = 11 },
+                new MainWindowModel { City = "krasnodar", Tempr = 21 }
         };
 
 
