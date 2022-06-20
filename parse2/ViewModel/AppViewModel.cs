@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using parse2.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
+using System.Windows;
 
 namespace parse2.ViewModel
 {
@@ -51,12 +52,19 @@ namespace parse2.ViewModel
             }
         }
 
+        public MenuCommand mcommand { get; set; }
 
         public ObservableCollection<MainWindowModel> Cities { get; set; }
         public AppViewModel()
         {
             Cities = Model.MainWindowModel.Cities;
             //Go();
+            mcommand = new MenuCommand(this);
+        }
+
+        public void OnExecute()
+        {
+            MessageBox.Show("gfesrdtgkyuijouy");
         }
 
         public async void Go()
@@ -72,10 +80,6 @@ namespace parse2.ViewModel
             }
         }
 
-        private void StartSecondWindow()
-        {
-
-        }
 
         public event PropertyChangedEventHandler PropertyChanged;
         private void OnPropertyChanged([CallerMemberName] string propname="")

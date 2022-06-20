@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:parse2" 
         xmlns:viewmodel="clr-namespace:parse2.ViewModel"
         mc:Ignorable="d"
-        Title="parse v1" Height="550" Width="900" Background="AliceBlue" Icon="/View/weather-cloudy.png">
+        Title="parse v1" Height="750" Width="1100" Background="AliceBlue" Icon="/View/weather-cloudy.png">
 
     <Window.DataContext>
         <viewmodel:AppViewModel/>
@@ -18,21 +18,21 @@
             <ColumnDefinition/>
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
+        <Grid.RowDefinitions>            
             <RowDefinition Height="10*"/>
             <RowDefinition/>
             <RowDefinition/>
-            <RowDefinition />
+            <RowDefinition/>
         </Grid.RowDefinitions>
 
-        <Menu Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="5" Background="AntiqueWhite" Cursor="Hand">
+        <Menu Grid.Row="3" VerticalAlignment="Center" Grid.ColumnSpan="2" Margin="5" Background="AntiqueWhite">
             <MenuItem Header="File">
-                <MenuItem Header="New"/>
-                <MenuItem Header="Exit"/>
+                <MenuItem Header="New" Click="MenuItem_Click"/>
+                <MenuItem Header="Exit" Click="MenuItem_Click_1"/>
             </MenuItem>
         </Menu>
-        
-        <WebBrowser x:Name="browser0" Grid.ColumnSpan="2" Margin="15" Source="https://pogoda.yandex.ru">
+
+        <WebBrowser x:Name="browser0" Grid.ColumnSpan="2" Margin="35" Visibility="Collapsed">
         </WebBrowser>
 
         <Border Margin="25,25,25,25" Grid.ColumnSpan="2" CornerRadius="3" BorderThickness="2" BorderBrush="red">
@@ -59,8 +59,8 @@
             <TextBox Background="White" Text="{Binding Tempr, UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
-        <Button Margin="50,357,50,10" Content="go" Cursor="Hand" Click="Button_Click" Grid.RowSpan="2"/>
-        <Button Grid.Column="1" Margin="50,357,50,10" Content="stop" Cursor="Hand" Grid.RowSpan="2"/>
+        <Button Grid.Row="1" Margin="50,5,50,5" Content="go" Cursor="Hand" Click="Button_Click"/>
+        <Button Grid.Row="1" Margin="50,5,50,5" Grid.Column="1" Content="stop" Cursor="Hand" Command="{Binding mcommand}"/>
 
         <TextBox x:Name="aa" Grid.Row="2" Grid.ColumnSpan="2" Margin="150,5,150,5" TextAlignment="Center" FontSize="18"/>
     </Grid>

@@ -5,8 +5,46 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:parse2.View"
         mc:Ignorable="d"
-        Title="SecondWindow" Height="450" Width="450" WindowStyle="ToolWindow">
+        Title="SecondWindow" Height="650" Width="650" WindowStyle="ToolWindow" Background="AliceBlue">
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+            <ColumnDefinition/>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="3*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel x:Name="historyList" Grid.ColumnSpan="3" VerticalAlignment="Center" Margin="15">
+            <TextBox x:Name="tb" FontSize="16"/>
+            <Popup Width="{Binding RelativeSource={RelativeSource Self},
+                          Path=PlacementTarget.ActualWidth}"
+          Placement="Bottom"
+          PlacementTarget="{Binding ElementName=tb}">
+                <Popup.Style>
+                    <Style TargetType="{x:Type Popup}">
+                        <Setter Property="IsOpen"
+                Value="False" />
+                        <Style.Triggers>
+                            <DataTrigger Binding="{Binding ElementName=tb,
+                                          Path=IsFocused}"
+                        Value="True">
+                                <Setter Property="IsOpen"
+                    Value="True" />
+                            </DataTrigger>
+                        </Style.Triggers>
+                    </Style>
+                </Popup.Style>
+                <ListBox x:Name="historyListBox">
+                    <ListBoxItem Content="A" />
+                    <ListBoxItem Content="B" />
+                </ListBox>
+            </Popup>
+        </StackPanel>
+
+        <RichTextBox Grid.Row="1" Grid.ColumnSpan="3" Grid.RowSpan="2" Background="Beige" Margin="15" x:Name="zxc"/>
     </Grid>
 </Window>
