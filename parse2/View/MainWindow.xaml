@@ -32,7 +32,7 @@
             </MenuItem>
         </Menu>
 
-        <WebBrowser x:Name="browser0" Grid.ColumnSpan="2" Margin="35" Visibility="Collapsed">
+        <WebBrowser x:Name="browser0" Grid.ColumnSpan="2" Margin="35" IsEnabled="False">
         </WebBrowser>
 
         <Border Margin="25,25,25,25" Grid.ColumnSpan="2" CornerRadius="3" BorderThickness="2" BorderBrush="red">
@@ -61,6 +61,8 @@
 
         <Button Grid.Row="1" Margin="50,5,50,5" Content="go" Cursor="Hand" Click="Button_Click"/>
         <Button Grid.Row="1" Margin="50,5,50,5" Grid.Column="1" Content="stop" Cursor="Hand" Command="{Binding mcommand}"/>
+
+        <Button Grid.Row="2" Click="Button_Click_1"/>
 
         <TextBox x:Name="aa" Grid.Row="2" Grid.ColumnSpan="2" Margin="150,5,150,5" TextAlignment="Center" FontSize="18"/>
     </Grid>

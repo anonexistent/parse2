@@ -1,8 +1,14 @@
 ﻿using MSHTML;
+using System.IO;
+using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using AngleSharp;
+using AngleSharp.Html.Parser;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace parse2
 {
@@ -53,6 +59,32 @@ namespace parse2
 
         }
 
+        private async void TryParseTwo()
+        {
+            var config = Configuration.Default.WithDefaultLoader();
+            var address = "https://yandex.ru/";
+            var context = BrowsingContext.New(config);
+            var document = await context.OpenAsync(address);
+            var cellSelector = "tr.vevent td:nth-child(3)";
+
+            //      document.all.(представленеи результатов) - нужны {AngleSharp.Html.Dom.HtmlAnchorElement}.inner/outerHtml, text
+            //"<div class=\"desk-notif-card__login-new-item-icon\"></div><div class=\"desk-notif-card__login-new-item-title\">Диск</div>"           ------      inner
+            //"<a class=\"home-link desk-notif-card__login-new-item desk-notif-card__login-new-item_disk home-link_black_yes\" href=\"https://passport.yandex.ru/auth?origin=home_disk&amp;retpath=https%3A%2F%2Fdisk.yandex.ru%2F%3Fsource%3Ddomik-main&amp;backpath=https%3A%2F%2Fyandex.ru\" target=\"_blank\" rel=\"noopener\"><div class=\"desk-notif-card__login-new-item-icon\"></div><div class=\"desk-notif-card__login-new-item-title\">Диск</div></a>"
+            
+            var io = document.All.Select(x => x.InnerHtml);     //  !!!!!!
+            var cells = document.QuerySelectorAll(cellSelector);
+
+            var titles = cells.Select(m => m.TextContent);
+
+            FlowDocument doc = new FlowDocument();
+            Paragraph par = new Paragraph();
+            par.Inlines.Add(page);
+            doc.Blocks.Add(par);
+            qq.zxc.Document = doc;
+
+            qq.Show();
+        }
+
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)
         {
             string resultik2 = string.Empty;
@@ -63,5 +95,34 @@ namespace parse2
 
             aa.Text=resultik2;
         }
+
+        private void Button_Click_1(object sender, RoutedEventArgs e)
+        {
+            TryParseTwo();
+        }
+
+        //private void Button_Click_1(object sender, RoutedEventArgs e)
+        //{
+
+        //    //      сработает пару раз, если повезет
+
+        //    HttpWebRequest request = (HttpWebRequest)HttpWebRequest.Create(@"https://pogoda.yandex.ru/region/225");
+        //    HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+        //    Stream stream = response.GetResponseStream();
+        //    StreamReader reader = new StreamReader(stream);
+
+        //    page = reader.ReadToEnd();
+
+        //    reader.Close();
+        //    stream.Close();
+
+        //    FlowDocument doc = new FlowDocument();
+        //    Paragraph par = new Paragraph();
+        //    par.Inlines.Add(page);
+        //    doc.Blocks.Add(par);
+        //    qq.zxc.Document = doc;
+
+        //    qq.Show();
+        //}
     }
 }

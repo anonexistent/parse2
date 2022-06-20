@@ -12,6 +12,7 @@ using System.Windows;
 using System.Net.Http;
 using AngleSharp;
 using System.Windows.Controls;
+using MSHTML;
 
 namespace parse2.Model.parser
 {
@@ -28,7 +29,27 @@ namespace parse2.Model.parser
             set { _result = value; }
         }
 
+        public static void Go()
+        {
+                        //      по нажатию кнопки передача строки куда-то согласно MVVM
 
+            //HTMLDocument cc = (HTMLDocument)browser0.Document;
+            //regexx = @"class=.link place-list__item-name.+(pogoda/region/.+)\?via.+</a>";
+
+            ////lass=.link place-list__item-name.{0,40}(pogoda.region.)
+
+            //page = cc.documentElement.innerHTML;
+
+            //FlowDocument doc = new FlowDocument();
+            //Paragraph par = new Paragraph();
+            //par.Inlines.Add(page);
+            //doc.Blocks.Add(par);
+            //qq.zxc.Document = doc;
+
+            //qq.Show();
+
+            //resultik = Regex.Match(page, regexx).Groups[1].Value;
+        }
 
         //      \/         
 
@@ -47,49 +68,49 @@ namespace parse2.Model.parser
         //    return result;
         //}
 
-        public string Goo()
-        {
-            WebClient client = new WebClient();
+        //public string Goo()
+        //{
+        //    WebClient client = new WebClient();
 
-            string pageSource = client.DownloadString(ChildUrl);
+        //    string pageSource = client.DownloadString(ChildUrl);
 
-            string regStr = @"<a class=""link place-list__item-name oNd0aD8s link_js_inited""(\w*)";
+        //    string regStr = @"<a class=""link place-list__item-name oNd0aD8s link_js_inited""(\w*)";
 
-            string resultSource = Regex.Match(pageSource, regStr).Groups[0].Value;
+        //    string resultSource = Regex.Match(pageSource, regStr).Groups[0].Value;
 
-            return pageSource;
-        }
-
-
-
-        public async void Go()
-        {
-            using (WebClient client = new WebClient())
-            {
-                //using var context = BrowsingContext.New(Configuration.Default);
-                //context.SetCookie(new Cookie("123"));
-                //using var doc = await context.OpenAsync(MainUrl);
-                //var title = doc.GetElementsByClassName("Text Text_weight_regular Text_typography_body-long-m")[0];
-                //result = title.NodeValue;
+        //    return pageSource;
+        //}
 
 
 
-                //client.Encoding = System.Text.Encoding.UTF8;
-                //ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
+        //public async void Go()
+        //{
+        //    using (WebClient client = new WebClient())
+        //    {
+        //        using var context = BrowsingContext.New(Configuration.Default);
+        //        context.SetCookie(new Cookie("123"));
+        //        using var doc = await context.OpenAsync(MainUrl);
+        //        var title = doc.GetElementsByClassName("Text Text_weight_regular Text_typography_body-long-m")[0];
+        //        result = title.NodeValue;
 
-                //var htmlData = client.DownloadData(MainUrl);
-                //string htmlCode = Encoding.UTF8.GetString(htmlData);
 
-                //result = htmlCode;
 
-                ////var parts1 = Regex.Split(htmlCode, "nick=upread.ru\">");
-                ////var parts2 = Regex.Split(parts1[1], " ");
-                ////int numberPosition = Convert.ToInt32(Regex.Replace(parts2[0], @"[^\d]+", ""));
+        //        client.Encoding = System.Text.Encoding.UTF8;
+        //        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12 | SecurityProtocolType.Tls11 | SecurityProtocolType.Tls;
 
-                ////this.Invoke(new MethodInvoker(delegate {
-                ////    label1.Text = Convert.ToString("Позиция: " + numberPosition + " Время: " + System.DateTime.Now.ToLongTimeString());
-                ////}));
-            }
-        }
+        //        var htmlData = client.DownloadData(MainUrl);
+        //        string htmlCode = Encoding.UTF8.GetString(htmlData);
+
+        //        result = htmlCode;
+
+        //        //var parts1 = Regex.Split(htmlCode, "nick=upread.ru\">");
+        //        //var parts2 = Regex.Split(parts1[1], " ");
+        //        //int numberPosition = Convert.ToInt32(Regex.Replace(parts2[0], @"[^\d]+", ""));
+
+        //        //this.Invoke(new MethodInvoker(delegate {
+        //        //    label1.Text = Convert.ToString("Позиция: " + numberPosition + " Время: " + System.DateTime.Now.ToLongTimeString());
+        //        //}));
+        //    }
+        //}
     }
 }
