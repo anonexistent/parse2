@@ -9,6 +9,7 @@ using parse2.Model;
 using System.Collections.ObjectModel;
 using System.Windows.Input;
 using System.Windows;
+using parse2.Model.parser;
 
 namespace parse2.ViewModel
 {
@@ -52,17 +53,23 @@ namespace parse2.ViewModel
             }
         }
 
+
+
         public MenuCommand mcommand { get; set; }
 
         public ObservableCollection<MainWindowModel> Cities { get; set; }
+        public ObservableCollection<ParserOne> RegionsSource { get;set; }
+
         public AppViewModel()
         {
-            Cities = Model.MainWindowModel.Cities;
+            Cities = MainWindowModel.Cities;
+            ParserOne.GetResult();
+            RegionsSource = ParserOne.RegionsSource;
             //Go();
             mcommand = new MenuCommand(this);
         }
 
-        public void OnExecute()
+        public void OnExecute([CallerMemberName] string name="")
         {
             MessageBox.Show("gfesrdtgkyuijouy");
         }

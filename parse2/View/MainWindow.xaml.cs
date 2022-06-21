@@ -9,6 +9,7 @@ using AngleSharp;
 using AngleSharp.Html.Parser;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Collections.Generic;
 
 namespace parse2
 {
@@ -18,11 +19,12 @@ namespace parse2
         {
             InitializeComponent();
             browser0.Source = new System.Uri(@"https://pogoda.yandex.ru/region/225");
+            
         }
 
         public string page { get; set; }
         public string regexx { get; set; }
-        public string resultik { get; set; }
+        public MatchCollection resultik { get; set; }
 
         View.SecondWindow qq = new View.SecondWindow();
 
@@ -39,10 +41,12 @@ namespace parse2
 
         private void MenuItem_Click(object sender, RoutedEventArgs e)
         {
-            HTMLDocument cc = (HTMLDocument)browser0.Document;
-            regexx = @"class=.link place-list__item-name.+(pogoda/region/.+)\?via.+</a>";
+            //      ссылки на области / края
 
-            //lass=.link place-list__item-name.{0,40}(pogoda.region.)
+            HTMLDocument cc = (HTMLDocument)browser0.Document;
+            regexx = @"class=.link place-list__item-name.+pogoda/region/\?via.+</a>";
+
+            string regex2 = @"lass=.link place-list__item-name.{0,40}(pogoda.region.\d+)";
 
             page = cc.documentElement.innerHTML;
 
@@ -54,35 +58,48 @@ namespace parse2
 
             qq.Show();
 
-            resultik = Regex.Match(page, regexx).Groups[1].Value;
+            resultik = Regex.Matches(page, regex2);
 
-
+            foreach (var item in resultik)
+            {
+                MessageBox.Show(item.ToString());
+            }
         }
 
         private async void TryParseTwo()
         {
-            var config = Configuration.Default.WithDefaultLoader();
-            var address = "https://yandex.ru/";
-            var context = BrowsingContext.New(config);
-            var document = await context.OpenAsync(address);
-            var cellSelector = "tr.vevent td:nth-child(3)";
+            //var config = Configuration.Default.WithDefaultLoader();
+            //var address = "https://yandex.ru/";
+            //var context = BrowsingContext.New(config);
+            //var document = await context.OpenAsync(address);
+            //var cellSelector = "tr.vevent td:nth-child(3)";
 
-            //      document.all.(представленеи результатов) - нужны {AngleSharp.Html.Dom.HtmlAnchorElement}.inner/outerHtml, text
-            //"<div class=\"desk-notif-card__login-new-item-icon\"></div><div class=\"desk-notif-card__login-new-item-title\">Диск</div>"           ------      inner
-            //"<a class=\"home-link desk-notif-card__login-new-item desk-notif-card__login-new-item_disk home-link_black_yes\" href=\"https://passport.yandex.ru/auth?origin=home_disk&amp;retpath=https%3A%2F%2Fdisk.yandex.ru%2F%3Fsource%3Ddomik-main&amp;backpath=https%3A%2F%2Fyandex.ru\" target=\"_blank\" rel=\"noopener\"><div class=\"desk-notif-card__login-new-item-icon\"></div><div class=\"desk-notif-card__login-new-item-title\">Диск</div></a>"
+            ////      document.all.(представленеи результатов) - нужны {AngleSharp.Html.Dom.HtmlAnchorElement}.inner/outerHtml, text
+            ////"<div class=\"desk-notif-card__login-new-item-icon\"></div><div class=\"desk-notif-card__login-new-item-title\">Диск</div>"           ------      inner
+            ////"<a class=\"home-link desk-notif-card__login-new-item desk-notif-card__login-new-item_disk home-link_black_yes\" href=\"https://passport.yandex.ru/auth?origin=home_disk&amp;retpath=https%3A%2F%2Fdisk.yandex.ru%2F%3Fsource%3Ddomik-main&amp;backpath=https%3A%2F%2Fyandex.ru\" target=\"_blank\" rel=\"noopener\"><div class=\"desk-notif-card__login-new-item-icon\"></div><div class=\"desk-notif-card__login-new-item-title\">Диск</div></a>"
             
-            var io = document.All.Select(x => x.InnerHtml);     //  !!!!!!
-            var cells = document.QuerySelectorAll(cellSelector);
+            //var io = document.All.Select(m=>m.InnerHtml);     //  !!!!!!
+            //var cells = document.QuerySelectorAll(cellSelector);
 
-            var titles = cells.Select(m => m.TextContent);
+            //var titles = cells.Select(m => m.InnerHtml);
 
-            FlowDocument doc = new FlowDocument();
-            Paragraph par = new Paragraph();
-            par.Inlines.Add(page);
-            doc.Blocks.Add(par);
-            qq.zxc.Document = doc;
+            //FlowDocument doc = new FlowDocument();
+            //Paragraph par = new Paragraph();
 
-            qq.Show();
+            //var r = document.DocumentElement.ClassList;
+
+
+            //MessageBox.Show(string.Join('\0',titles));
+
+            //var parser = new HtmlParser();
+            //var uio = await parser.ParseDocumentAsync(@"https://pogoda.yandex.ru/region/225");
+            //var iop = uio.QuerySelectorAll("class");
+
+
+            //par.Inlines.Add(uio);
+            //doc.Blocks.Add(par);
+            //qq.zxc.Document = doc;
+            //qq.Show();
         }
 
         private void MenuItem_Click_1(object sender, RoutedEventArgs e)

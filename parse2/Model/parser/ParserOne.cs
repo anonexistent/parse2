@@ -13,43 +13,96 @@ using System.Net.Http;
 using AngleSharp;
 using System.Windows.Controls;
 using MSHTML;
+using System.Windows.Documents;
 
 namespace parse2.Model.parser
 {
-    internal class ParserOne
+    public class ParserOne : INotifyPropertyChanged
     {
         //погода в россии - список областей
-        public string MainUrl { get{ return @"https://yandex.ru/pogoda/region/225"; } set { MainUrl = value; } }
-        public string ChildUrl { get { return @"https://clck.ru/rayNK"; } set { MainUrl = value; } }        
+        public static string MainUrl { get{ return @"https://yandex.ru/pogoda/region/225"; } }
+        //public string ChildUrl { get { return @"https://clck.ru/rayNK"; } set { MainUrl = value; } }        
 
-        private string _result;
-        public string result
+        public static string Page { get; set; }
+
+        private string regionName;
+        public string RegionName
         {
-            get { return _result; }
-            set { _result = value; }
+            get { return regionName; }
+            set { regionName = value; }
         }
 
-        public static void Go()
+        private string regionSource;
+        public string RegionSource
         {
-                        //      по нажатию кнопки передача строки куда-то согласно MVVM
-
-            //HTMLDocument cc = (HTMLDocument)browser0.Document;
-            //regexx = @"class=.link place-list__item-name.+(pogoda/region/.+)\?via.+</a>";
-
-            ////lass=.link place-list__item-name.{0,40}(pogoda.region.)
-
-            //page = cc.documentElement.innerHTML;
-
-            //FlowDocument doc = new FlowDocument();
-            //Paragraph par = new Paragraph();
-            //par.Inlines.Add(page);
-            //doc.Blocks.Add(par);
-            //qq.zxc.Document = doc;
-
-            //qq.Show();
-
-            //resultik = Regex.Match(page, regexx).Groups[1].Value;
+            get { return regionSource; }
+            set { regionSource = value; }
         }
+
+
+
+        public static ObservableCollection<ParserOne> RegionsSource { get; set; }
+
+
+        public static void GetResult()
+        {
+            string ClassRegionPattern;
+
+            using (WebBrowser web = new WebBrowser())
+            {
+                web.Navigate(MainUrl);
+                HTMLDocument doc = (HTMLDocument)web.Document;
+                Page = doc.documentElement.innerHTML;
+                ClassRegionPattern = @"lass=.link place-list__item-name.{0,40}(pogoda.region.\d+)";
+
+                FlowDocument flowdoc = new FlowDocument();
+                Paragraph par = new Paragraph();
+                par.Inlines.Add(Page);
+                flowdoc.Blocks.Add(par);
+                
+            }
+
+            var tempresult = Regex.Matches(Page, ClassRegionPattern);
+
+            for (int i = 0; i < tempresult.Count; i++)
+            {
+                RegionsSource.Add(new ParserOne { RegionName="н/д", RegionSource = tempresult[i].ToString() }) ;
+            }
+        }
+
+        public ParserOne()
+        {
+            GetResult();
+        }
+
+
+        public event PropertyChangedEventHandler? PropertyChanged;
+        private void OnPropertyChanged([CallerMemberName] string prop="")
+        {
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        }
+
+        //public static void Go()
+        //{
+        //      по нажатию кнопки передача строки куда-то согласно MVVM
+
+        //HTMLDocument cc = (HTMLDocument)browser0.Document;
+        //regexx = @"class=.link place-list__item-name.+(pogoda/region/.+)\?via.+</a>";
+
+        ////lass=.link place-list__item-name.{0,40}(pogoda.region.)
+
+        //page = cc.documentElement.innerHTML;
+
+        //FlowDocument doc = new FlowDocument();
+        //Paragraph par = new Paragraph();
+        //par.Inlines.Add(page);
+        //doc.Blocks.Add(par);
+        //qq.zxc.Document = doc;
+
+        //qq.Show();
+
+        //resultik = Regex.Match(page, regexx).Groups[1].Value;
+        //}
 
         //      \/         
 

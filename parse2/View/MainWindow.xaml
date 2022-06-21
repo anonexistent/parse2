@@ -36,7 +36,7 @@
         </WebBrowser>
 
         <Border Margin="25,25,25,25" Grid.ColumnSpan="2" CornerRadius="3" BorderThickness="2" BorderBrush="red">
-            <TextBlock x:Name="testTB0" Margin="15" Background="Beige" TextAlignment="Center" Text="{Binding Testtoo}" Visibility="Visible"/>
+            <TextBlock x:Name="testTB0" Margin="15" Background="Beige" TextAlignment="Center" Text="{Binding Testtoo}" Visibility="Collapsed"/>
             <!-- Text="{Binding click}" -->
         </Border>
 
