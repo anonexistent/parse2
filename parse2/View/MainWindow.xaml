@@ -36,36 +36,35 @@
             </MenuItem>
         </Menu>
 
-        <WebBrowser x:Name="browser0" Grid.ColumnSpan="2" Margin="35" Visibility="Hidden">
-        </WebBrowser>
+        <Border Grid.Column="1" Grid.ColumnSpan="2" BorderThickness="2" BorderBrush="Orange" Margin="55" CornerRadius="10">
+            <Frame Margin="5" DataContext="{Binding norm.Selected}" Source="{Binding Source}"/>
+        </Border>
 
-        <Border Margin="25,25,25,25" Grid.ColumnSpan="3" CornerRadius="3" BorderThickness="2" BorderBrush="red">
+        <Border Margin="25,25,25,25" Grid.ColumnSpan="3" CornerRadius="15" BorderThickness="2" BorderBrush="red">
             <TextBlock x:Name="testTB0" Margin="15" Background="Beige" TextAlignment="Center" Text="{Binding Testtoo}" Visibility="Collapsed"/>
             <!-- Text="{Binding click}" -->
         </Border>
 
-        <ListBox Margin="45,45,20,45" ItemsSource="{Binding Cities}"
-                 SelectedItem="{Binding selectedcity}">
+        <ListBox Margin="45,45,20,45" ItemsSource="{Binding norm.cis}"
+                 SelectedItem="{Binding norm.Selected}">
             <ListBox.ItemTemplate>
                 <DataTemplate>
                     <StackPanel Margin="5">
-                        <TextBlock FontSize="18" Text="{Binding Path=City}" />
+                        <TextBlock FontSize="18" Text="{Binding Name}" />
                     </StackPanel>
                 </DataTemplate>
             </ListBox.ItemTemplate>
         </ListBox>
 
-        <StackPanel Margin="20,45,45,45" Background="Bisque" Grid.Column="2" DataContext="{Binding selectedcity}">
+        <!--<StackPanel Margin="20,45,45,45" Background="Bisque" Grid.Column="2" DataContext="{Binding selectedcity}">
             <TextBlock Text="current obj" TextAlignment="Center" FontWeight="Bold" FontSize="20" Background="Beige"/>
             <TextBlock Text="city" FontSize="18"/>
             <TextBox Background="White" Text="{Binding City, UpdateSourceTrigger=PropertyChanged}" />
             <TextBlock Text="°C" FontSize="18"/>
             <TextBox Background="White" Text="{Binding Tempr, UpdateSourceTrigger=PropertyChanged}" />
-        </StackPanel>
+        </StackPanel>-->
 
         <Button Grid.Row="1" Margin="50,5,50,5" Content="go" Cursor="Hand"/>
         <Button Grid.Row="1" Margin="50,5,50,5" Grid.Column="1" Content="stop" Cursor="Hand" Command="{Binding mcommand}"/>
-
-        <TextBox x:Name="aa" Grid.Row="2" Grid.ColumnSpan="2" Margin="150,5,150,5" TextAlignment="Center" FontSize="18"/>
     </Grid>
 </Window>

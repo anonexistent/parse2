@@ -1,25 +1,10 @@
-﻿using MSHTML;
-using System.IO;
-using System.Net;
-using System.Text.RegularExpressions;
-using System.Windows;
-using System.Windows.Controls;
-using System.Windows.Documents;
-using AngleSharp;
-using AngleSharp.Html.Parser;
-using System.Linq;
-using System.Threading.Tasks;
-using System.Collections.Generic;
+﻿using System.Windows;
 
 namespace parse2
 {
     public partial class MainWindow : Window
     {
-        public MainWindow()
-        {
-            InitializeComponent();
-            
-        }
+        public MainWindow() => InitializeComponent();
 
         //private void Button_Click_1(object sender, RoutedEventArgs e)
         //{

@@ -56,7 +56,7 @@ namespace parse2.ViewModel
 
 
         public MenuCommand mcommand { get; set; }
-
+        public WorkerFor1 norm { get; private set; }
         public ObservableCollection<MainWindowModel> Cities { get; set; }
         public ObservableCollection<ParserOne> RegionsSource { get;set; }
 
@@ -67,6 +67,7 @@ namespace parse2.ViewModel
             RegionsSource = ParserOne.RegionsSource;
             //Go();
             mcommand = new MenuCommand(this);
+            norm = new WorkerFor1();
         }
 
         public void OnExecute()
