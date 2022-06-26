@@ -63,13 +63,13 @@ namespace parse2.ViewModel
         public AppViewModel()
         {
             Cities = MainWindowModel.Cities;
-            ParserOne.GetResult();
+            //ParserOne parser = new ParserOne();
             RegionsSource = ParserOne.RegionsSource;
             //Go();
             mcommand = new MenuCommand(this);
         }
 
-        public void OnExecute([CallerMemberName] string name="")
+        public void OnExecute()
         {
             MessageBox.Show("gfesrdtgkyuijouy");
         }

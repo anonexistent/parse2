@@ -14,6 +14,7 @@ using AngleSharp;
 using System.Windows.Controls;
 using MSHTML;
 using System.Windows.Documents;
+using HtmlAgilityPack;
 
 namespace parse2.Model.parser
 {
@@ -50,6 +51,7 @@ namespace parse2.Model.parser
 
             using (WebBrowser web = new WebBrowser())
             {
+                web.Visibility = Visibility.Visible;
                 web.Navigate(MainUrl);
                 HTMLDocument doc = (HTMLDocument)web.Document;
                 Page = doc.documentElement.innerHTML;
@@ -70,9 +72,16 @@ namespace parse2.Model.parser
             }
         }
 
+        public static void GetResultNew()
+        {
+            HtmlAgilityPack.HtmlDocument doc = new HtmlAgilityPack.HtmlDocument();
+            doc.Load(MainUrl);
+            MessageBox.Show(doc.ToString());
+        }
+
         public ParserOne()
         {
-            GetResult();
+            GetResultNew();
         }
 
 
