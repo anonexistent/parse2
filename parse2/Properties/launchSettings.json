@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "parse2": {
+      "commandName": "Project",
+      "nativeDebugging": false
+    }
+  }
+}

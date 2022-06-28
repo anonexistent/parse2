@@ -1,46 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using parse2.Model;
+﻿using parse2.Model.parser;
+using System;
 using System.Collections.ObjectModel;
-using System.Windows.Input;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
-using parse2.Model.parser;
+using System.Windows.Controls;
 
 namespace parse2.ViewModel
 {
-    internal class AppViewModel : INotifyPropertyChanged
+    public class AppViewModel : INotifyPropertyChanged
     {
         public Random uuu = new Random();
-        private MainWindowModel _selectedCity;
-        public MainWindowModel selectedcity
-        {
-            get { return _selectedCity; }
-            set { _selectedCity = value;
-                OnPropertyChanged();
-            }
-        }
-
-        private int _click;
-        public int click
-        {
-            get { return _click; }
-            set
-            {
-                _click = value;
-                OnPropertyChanged();
-            }
-        }
 
         private char[] test = new char[10];
         public char[] Test
         {
             get { return test; }
-            set { test = value;
+            set
+            {
+                test = value;
             }
         }
 
@@ -48,31 +28,81 @@ namespace parse2.ViewModel
         public string Testtoo
         {
             get { return testtoo; }
-            set { testtoo = value;
+            set
+            {
+                testtoo = value;
                 OnPropertyChanged();
             }
         }
 
-
+        private string _html;
+        public string Html
+        {
+            get { return _html; }
+            set
+            {
+                _html = value;
+                OnPropertyChanged();
+            }
+        }
 
         public MenuCommand mcommand { get; set; }
-        public WorkerFor1 norm { get; private set; }
-        public ObservableCollection<MainWindowModel> Cities { get; set; }
-        public ObservableCollection<ParserOne> RegionsSource { get;set; }
+
+        private WorkerFor1 _norm = new WorkerFor1();
+        public WorkerFor1 norm
+        {
+            get { return _norm; }
+            set
+            {
+                _norm = value;
+                OnPropertyChanged();
+            }
+        }
+
+        public ObservableCollection<ParserOne> RegionsSource { get; set; }
 
         public AppViewModel()
         {
-            Cities = MainWindowModel.Cities;
+            //Cities = MainWindowModel.Cities;
             //ParserOne parser = new ParserOne();
-            RegionsSource = ParserOne.RegionsSource;
+            //RegionsSource = ParserOne.RegionsSource;
             //Go();
             mcommand = new MenuCommand(this);
+
             norm = new WorkerFor1();
+
         }
 
-        public void OnExecute()
+        public async void OnExecute(object a)
         {
-            MessageBox.Show("gfesrdtgkyuijouy");
+            try
+            {
+                //  ACHTUNG!!!!!!!!!!!!!!
+                ((WebBrowser)a).Source = new Uri(norm.Selected.Source);
+                await Task.Delay(1000);
+                var temphtml = (MSHTML.HTMLDocument)((WebBrowser)a).Document;
+                string page = temphtml.documentElement.innerHTML;
+
+                string regexTemperature = @"(Текущая .{0,60}). href";
+                string regexWind = @"a11y-hidden..(Ветер:.{0,39}\.)./span";
+                string regexWater = @"a11y-hidden..(Влажность:.{0,6}\.)";
+                string regexPressure = @"a11y-hidden..(Давление:.{0,40}\.)";
+
+                //aria-label="(Текущая .{0,60}).{0,5}data
+                //aria-label=.(Текущая .{0,50}). data
+                //link fact..basic .{50,120}..(Текущая.{0,60})..data
+
+                Html = "\n" + Regex.Match(page, regexTemperature).Groups[1].Value + "\n" + Regex.Match(page, regexWind).Groups[1].Value + "\n"
+                    + Regex.Match(page, regexWater).Groups[1].Value + "\n" + Regex.Match(page, regexPressure).Groups[1].Value + "\n";
+
+                //string ggg = (((MSHTML.HTMLDocument)((WebBrowser)a).Document).documentElement.
+
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
+
         }
 
         public async void Go()
@@ -90,9 +120,9 @@ namespace parse2.ViewModel
 
 
         public event PropertyChangedEventHandler PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string propname="")
+        private void OnPropertyChanged([CallerMemberName] string propname = "")
         {
-            if(PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propname));
+            if (PropertyChanged != null) PropertyChanged.Invoke(this, new PropertyChangedEventArgs(propname));
         }
     }
 }

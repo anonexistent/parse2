@@ -1,27 +1,18 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using MSHTML;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.CompilerServices;
-using System.Text;
-using System.Threading.Tasks;
-using System.Net;
 using System.Text.RegularExpressions;
 using System.Windows;
-using System.Net.Http;
-using AngleSharp;
 using System.Windows.Controls;
-using MSHTML;
 using System.Windows.Documents;
-using HtmlAgilityPack;
 
 namespace parse2.Model.parser
 {
     public class ParserOne : INotifyPropertyChanged
     {
         //погода в россии - список областей
-        public static string MainUrl { get{ return @"https://yandex.ru/pogoda/region/225"; } }
+        public static string MainUrl { get { return @"https://yandex.ru/pogoda/region/225"; } }
         //public string ChildUrl { get { return @"https://clck.ru/rayNK"; } set { MainUrl = value; } }        
 
         public static string Page { get; set; }
@@ -61,14 +52,14 @@ namespace parse2.Model.parser
                 Paragraph par = new Paragraph();
                 par.Inlines.Add(Page);
                 flowdoc.Blocks.Add(par);
-                
+
             }
 
             var tempresult = Regex.Matches(Page, ClassRegionPattern);
 
             for (int i = 0; i < tempresult.Count; i++)
             {
-                RegionsSource.Add(new ParserOne { RegionName="н/д", RegionSource = tempresult[i].ToString() }) ;
+                RegionsSource.Add(new ParserOne { RegionName = "н/д", RegionSource = tempresult[i].ToString() });
             }
         }
 
@@ -86,7 +77,7 @@ namespace parse2.Model.parser
 
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        private void OnPropertyChanged([CallerMemberName] string prop="")
+        private void OnPropertyChanged([CallerMemberName] string prop = "")
         {
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
         }

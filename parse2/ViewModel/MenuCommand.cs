@@ -1,20 +1,16 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Input;
 
 namespace parse2.ViewModel
 {
-    internal class MenuCommand : ICommand
+    public class MenuCommand : ICommand
     {
         public event EventHandler? CanExecuteChanged;
         public AppViewModel avm { get; set; }
 
-        public MenuCommand(AppViewModel avm)
+        public MenuCommand(AppViewModel a)
         {
-            this.avm = avm;
+            avm = a;
         }
 
         public bool CanExecute(object? parameter)
@@ -24,7 +20,7 @@ namespace parse2.ViewModel
 
         public void Execute(object? parameter)
         {
-            avm.OnExecute();
+            avm.OnExecute(parameter);
         }
     }
 }
